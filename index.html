@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="myChart"></canvas>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  async function loadChart() {
+    const endpoint = 'https://api.npmjs.org/downloads/range/last-month/@yext/answers-core'
+    const response = await (await fetch(endpoint)).json()
+    const downloadsArray = response.downloads;
+    console.log(response);
+
+    const data = {
+      labels: downloadsArray.map(d => {
+        return new Date(d.day).toLocaleDateString('en', { day: 'numeric', month: 'numeric' })
+      }),
+      datasets: [{
+        label: '@yext/answers-core',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: downloadsArray.map(d => d.downloads),
+      }]
+    };
+    const config = {
+      type: 'line',
+      data: data,
+      options: {}
+    };
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  }
+  loadChart();
+</script>
+
+</html>
