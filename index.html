@@ -11,11 +11,12 @@
       height: calc(100vh/3 - 10px);
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
   async function loadMonthlyChart(repo) {
     const container = document.createElement('canvas');
@@ -48,6 +49,11 @@
   loadMonthlyChart('jambo');
   loadMonthlyChart('@yext/answers-core');
   loadMonthlyChart('@yext/answers-search-ui');
+
+  // refresh every four hours
+  window.setTimeout(function () {
+    window.location.reload();
+  }, 1000 * 60 * 60 * 4);
 </script>
 
 </html>
